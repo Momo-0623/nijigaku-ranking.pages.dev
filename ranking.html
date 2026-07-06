@@ -1,80 +1,789 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>虹学夏季野球大会（仮）｜ランキング</title>
+
 <style>
-:root{--navy:#05284d;--line:#d9dee6;--bg:#f4f6f8}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;color:#15202b}
-header{background:var(--navy);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:10px}
-header img{width:34px;height:34px;object-fit:contain} header b{font-size:20px}
-main{max-width:900px;margin:auto;padding:16px}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 2px 8px #0000000a}
-.card h2{margin-top:0}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}
-th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left}th{background:#f5f7fa}
-.teamline{display:flex;align-items:center;gap:10px;font-weight:700}.teamline img{width:42px;height:42px;object-fit:contain}
-.rank{font-size:20px;font-weight:900;line-height:1;white-space:nowrap}.rank-1{color:#d4af37}.rank-2{color:#aeb4bd}.rank-3{color:#b87333}
-.update{font-size:13px;color:#65717d;margin-top:6px}.empty{padding:24px 10px;text-align:center;color:#65717d}
-@media(max-width:600px){header{padding:14px 16px}header b{font-size:17px}main{padding:12px}.card{padding:12px}th,td{padding:11px 8px}.teamline img{width:38px;height:38px}}
+
+:root{
+  --navy:#05284d;
+  --line:#d9dee6;
+  --bg:#f4f6f8;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans JP",
+    sans-serif;
+  color:#15202b;
+}
+
+header{
+  background:var(--navy);
+  color:#fff;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+header img{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+}
+
+header b{
+  font-size:20px;
+}
+
+main{
+  max-width:900px;
+  margin:auto;
+  padding:16px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 2px 8px #0000000a;
+}
+
+.card h2{
+  margin-top:0;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,
+td{
+  padding:12px 10px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+}
+
+th{
+  background:#f5f7fa;
+}
+
+.teamline{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+}
+
+.teamline img{
+  width:42px;
+  height:42px;
+  object-fit:contain;
+}
+
+.rank{
+  font-size:20px;
+  font-weight:900;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.rank-1{
+  color:#d4af37;
+}
+
+.rank-2{
+  color:#aeb4bd;
+}
+
+.rank-3{
+  color:#b87333;
+}
+
+.update{
+  font-size:13px;
+  color:#65717d;
+  margin-top:6px;
+}
+
+.empty{
+  padding:24px 10px;
+  text-align:center;
+  color:#65717d;
+}
+
+.error{
+  color:#c62828;
+}
+
+@media(max-width:600px){
+
+  header{
+    padding:14px 16px;
+  }
+
+  header b{
+    font-size:17px;
+  }
+
+  main{
+    padding:12px;
+  }
+
+  .card{
+    padding:12px;
+  }
+
+  th,
+  td{
+    padding:11px 8px;
+  }
+
+  .teamline img{
+    width:38px;
+    height:38px;
+  }
+
+}
+
 </style>
+
 </head>
+
 <body>
-<header><img src="assets/baseball.png" alt=""><b>虹学夏季野球大会（仮）</b></header>
+
+
+<header>
+
+<img
+src="baseball.png"
+alt=""
+>
+
+<b>
+虹学夏季野球大会（仮）
+</b>
+
+</header>
+
+
 <main>
-<div class="card"><h2>大会ランキング</h2><div id="updated" class="update">ランキングを読み込んでいます</div></div>
-<div class="card"><h2>チームランキング</h2><div class="table-wrap"><table><thead><tr><th>順位</th><th>チーム</th><th>得点</th></tr></thead><tbody id="teamRanking"></tbody></table></div></div>
-<div class="card"><h2>個人ランキング</h2><div class="table-wrap"><table><thead><tr><th>順位</th><th>名前</th><th>所属</th><th>得点</th></tr></thead><tbody id="studentRanking"></tbody></table></div></div>
+
+
+<div class="card">
+
+<h2>
+大会ランキング
+</h2>
+
+<div
+id="updated"
+class="update"
+>
+ランキングを読み込んでいます
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+チームランキング
+</h2>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>順位</th>
+<th>チーム</th>
+<th>得点</th>
+
+</tr>
+
+</thead>
+
+<tbody id="teamRanking"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+個人ランキング
+</h2>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>順位</th>
+<th>名前</th>
+<th>所属</th>
+<th>得点</th>
+
+</tr>
+
+</thead>
+
+<tbody id="studentRanking"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
 </main>
+
+
 <script>
-const API_URL='https://nijigaku-baseball-api.s-h-k-p-h-990.workers.dev/api/data';
-const placeholder='assets/baseball.png';
-let db={teams:[],students:[]};
+
+
+const API_URL=
+'https://nijigaku-baseball-api.s-h-k-p-h-990.workers.dev/api/data';
+
+
+const placeholder=
+'baseball.png';
+
+
+let db={
+
+  teams:[],
+
+  students:[],
+
+  history:[]
+
+};
+
+
 
 async function loadData(){
+
+  const updated=
+  document.getElementById(
+    'updated'
+  );
+
+
   try{
-    const response=await fetch(API_URL);
-    if(!response.ok) throw new Error('データ取得失敗');
-    const data=await response.json();
+
+    updated.classList.remove(
+      'error'
+    );
+
+
+    updated.textContent=
+    'ランキングを読み込んでいます';
+
+
+    const response=
+    await fetch(
+
+      API_URL,
+
+      {
+
+        method:'GET',
+
+        cache:'no-store'
+
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+
+        `API ERROR ${response.status}`
+
+      );
+
+    }
+
+
+    const data=
+    await response.json();
+
+
+    console.log(
+
+      'ランキングAPI取得',
+
+      data
+
+    );
+
+
     db={
-      teams:Array.isArray(data.teams)?data.teams:[],
-      students:Array.isArray(data.students)?data.students:[]
+
+      teams:
+
+      Array.isArray(
+        data.teams
+      )
+
+      ?
+
+      data.teams
+
+      :
+
+      [],
+
+
+      students:
+
+      Array.isArray(
+        data.students
+      )
+
+      ?
+
+      data.students
+
+      :
+
+      [],
+
+
+      history:
+
+      Array.isArray(
+        data.history
+      )
+
+      ?
+
+      data.history
+
+      :
+
+      []
+
     };
+
+
     render();
+
+
   }catch(error){
-    console.error(error);
-    document.getElementById('updated').textContent='ランキングデータの読み込みに失敗しました';
+
+    console.error(
+      'ランキング取得エラー',
+      error
+    );
+
+
+    updated.classList.add(
+      'error'
+    );
+
+
+    updated.textContent=
+    'ランキングデータの読み込みに失敗しました';
+
   }
+
 }
+
+
 
 function esc(value){
-  return String(value??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
+
+  return String(
+    value??''
+  )
+
+  .replaceAll(
+    '&',
+    '&amp;'
+  )
+
+  .replaceAll(
+    '<',
+    '&lt;'
+  )
+
+  .replaceAll(
+    '>',
+    '&gt;'
+  )
+
+  .replaceAll(
+    '"',
+    '&quot;'
+  )
+
+  .replaceAll(
+    "'",
+    '&#039;'
+  );
+
 }
-function team(id){return db.teams.find(t=>t.id===id)}
+
+
+
+function team(id){
+
+  return db.teams.find(
+
+    t=>t.id===id
+
+  );
+
+}
+
+
+
 function rankClass(index){
-  if(index===0)return 'rank rank-1';
-  if(index===1)return 'rank rank-2';
-  if(index===2)return 'rank rank-3';
-  return '';
+
+  if(index===0){
+
+    return 'rank rank-1';
+
+  }
+
+
+  if(index===1){
+
+    return 'rank rank-2';
+
+  }
+
+
+  if(index===2){
+
+    return 'rank rank-3';
+
+  }
+
+
+  return 'rank';
+
 }
+
+
+
 function render(){
-  const teamRanking=document.getElementById('teamRanking');
-  const studentRanking=document.getElementById('studentRanking');
-  const sortedTeams=[...db.teams].sort((a,b)=>(b.score||0)-(a.score||0));
-  teamRanking.innerHTML=sortedTeams.length
-    ? sortedTeams.map((t,index)=>`<tr><td><span class="${rankClass(index)}">${index+1}位</span></td><td><div class="teamline"><img src="${t.logo||placeholder}" alt="">${esc(t.name)}</div></td><td>${t.score||0}pt</td></tr>`).join('')
-    : '<tr><td colspan="3" class="empty">ランキングデータはまだありません</td></tr>';
 
-  const sortedStudents=[...db.students].sort((a,b)=>(b.score||0)-(a.score||0));
-  studentRanking.innerHTML=sortedStudents.length
-    ? sortedStudents.map((s,index)=>`<tr><td><span class="${rankClass(index)}">${index+1}位</span></td><td>${esc(s.name)}</td><td>${esc(team(s.teamId)?.name||'未所属')}</td><td>${s.score||0}pt</td></tr>`).join('')
-    : '<tr><td colspan="4" class="empty">ランキングデータはまだありません</td></tr>';
 
-  const now=new Date().toLocaleString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
-  document.getElementById('updated').textContent=`最終表示更新：${now}`;
+  const teamRanking=
+
+  document.getElementById(
+    'teamRanking'
+  );
+
+
+  const studentRanking=
+
+  document.getElementById(
+    'studentRanking'
+  );
+
+
+
+  const sortedTeams=
+
+  [...db.teams]
+
+  .sort(
+
+    (a,b)=>
+
+    Number(b.score||0)
+
+    -
+
+    Number(a.score||0)
+
+  );
+
+
+
+  if(sortedTeams.length){
+
+
+    teamRanking.innerHTML=
+
+    sortedTeams.map(
+
+      (t,index)=>`
+
+      <tr>
+
+      <td>
+
+      <span
+      class="${rankClass(index)}"
+      >
+
+      ${index+1}位
+
+      </span>
+
+      </td>
+
+
+      <td>
+
+      <div class="teamline">
+
+      <img
+      src="${esc(t.logo||placeholder)}"
+      alt=""
+      onerror="this.src='${placeholder}'"
+      >
+
+      <span>
+
+      ${esc(t.name)}
+
+      </span>
+
+      </div>
+
+      </td>
+
+
+      <td>
+
+      ${Number(t.score||0)}pt
+
+      </td>
+
+      </tr>
+
+      `
+
+    ).join('');
+
+
+  }else{
+
+
+    teamRanking.innerHTML=
+
+    `
+
+    <tr>
+
+    <td
+    colspan="3"
+    class="empty"
+    >
+
+    ランキングデータは
+    まだありません
+
+    </td>
+
+    </tr>
+
+    `;
+
+  }
+
+
+
+  const sortedStudents=
+
+  [...db.students]
+
+  .sort(
+
+    (a,b)=>
+
+    Number(b.score||0)
+
+    -
+
+    Number(a.score||0)
+
+  );
+
+
+
+  if(sortedStudents.length){
+
+
+    studentRanking.innerHTML=
+
+    sortedStudents.map(
+
+      (s,index)=>`
+
+      <tr>
+
+      <td>
+
+      <span
+      class="${rankClass(index)}"
+      >
+
+      ${index+1}位
+
+      </span>
+
+      </td>
+
+
+      <td>
+
+      ${esc(s.name)}
+
+      </td>
+
+
+      <td>
+
+      ${esc(
+
+        team(
+          s.teamId
+        )?.name
+
+        ||
+
+        '未所属'
+
+      )}
+
+      </td>
+
+
+      <td>
+
+      ${Number(s.score||0)}pt
+
+      </td>
+
+      </tr>
+
+      `
+
+    ).join('');
+
+
+  }else{
+
+
+    studentRanking.innerHTML=
+
+    `
+
+    <tr>
+
+    <td
+    colspan="4"
+    class="empty"
+    >
+
+    ランキングデータは
+    まだありません
+
+    </td>
+
+    </tr>
+
+    `;
+
+  }
+
+
+
+  const now=
+
+  new Date()
+
+  .toLocaleString(
+
+    'ja-JP',
+
+    {
+
+      year:'numeric',
+
+      month:'2-digit',
+
+      day:'2-digit',
+
+      hour:'2-digit',
+
+      minute:'2-digit'
+
+    }
+
+  );
+
+
+  document
+  .getElementById(
+    'updated'
+  )
+  .textContent=
+
+  `最終表示更新：${now}`;
+
 }
+
+
+
 loadData();
+
+
+setInterval(
+
+  loadData,
+
+  30000
+
+);
+
+
 </script>
+
+
 </body>
+
 </html>
