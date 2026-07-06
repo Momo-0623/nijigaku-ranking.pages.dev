@@ -171,6 +171,7 @@ th{
 
 </head>
 
+
 <body>
 
 
@@ -275,7 +276,6 @@ class="update"
 
 <script>
 
-
 const API_URL=
 'https://nijigaku-baseball-api.s-h-k-p-h-990.workers.dev/api/data';
 
@@ -285,31 +285,20 @@ const placeholder=
 
 
 let db={
-
   teams:[],
-
   students:[],
-
   history:[]
-
 };
-
 
 
 async function loadData(){
 
   const updated=
-  document.getElementById(
-    'updated'
-  );
-
+  document.getElementById('updated');
 
   try{
 
-    updated.classList.remove(
-      'error'
-    );
-
+    updated.classList.remove('error');
 
     updated.textContent=
     'ランキングを読み込んでいます';
@@ -317,26 +306,18 @@ async function loadData(){
 
     const response=
     await fetch(
-
       API_URL,
-
       {
-
         method:'GET',
-
         cache:'no-store'
-
       }
-
     );
 
 
     if(!response.ok){
 
       throw new Error(
-
         `API ERROR ${response.status}`
-
       );
 
     }
@@ -347,65 +328,32 @@ async function loadData(){
 
 
     console.log(
-
       'ランキングAPI取得',
-
       data
-
     );
 
 
     db={
 
       teams:
-
-      Array.isArray(
-        data.teams
-      )
-
-      ?
-
-      data.teams
-
-      :
-
-      [],
-
+      Array.isArray(data.teams)
+      ? data.teams
+      : [],
 
       students:
-
-      Array.isArray(
-        data.students
-      )
-
-      ?
-
-      data.students
-
-      :
-
-      [],
-
+      Array.isArray(data.students)
+      ? data.students
+      : [],
 
       history:
-
-      Array.isArray(
-        data.history
-      )
-
-      ?
-
-      data.history
-
-      :
-
-      []
+      Array.isArray(data.history)
+      ? data.history
+      : []
 
     };
 
 
     render();
-
 
   }catch(error){
 
@@ -414,11 +362,7 @@ async function loadData(){
       error
     );
 
-
-    updated.classList.add(
-      'error'
-    );
-
+    updated.classList.add('error');
 
     updated.textContent=
     'ランキングデータの読み込みに失敗しました';
@@ -428,135 +372,81 @@ async function loadData(){
 }
 
 
-
 function esc(value){
 
-  return String(
-    value??''
-  )
+  return String(value??'')
 
-  .replaceAll(
-    '&',
-    '&amp;'
-  )
-
-  .replaceAll(
-    '<',
-    '&lt;'
-  )
-
-  .replaceAll(
-    '>',
-    '&gt;'
-  )
-
-  .replaceAll(
-    '"',
-    '&quot;'
-  )
-
-  .replaceAll(
-    "'",
-    '&#039;'
-  );
+  .replaceAll('&','&amp;')
+  .replaceAll('<','&lt;')
+  .replaceAll('>','&gt;')
+  .replaceAll('"','&quot;')
+  .replaceAll("'",'&#039;');
 
 }
-
 
 
 function team(id){
 
   return db.teams.find(
-
     t=>t.id===id
-
   );
 
 }
 
 
-
 function rankClass(index){
 
   if(index===0){
-
     return 'rank rank-1';
-
   }
-
 
   if(index===1){
-
     return 'rank rank-2';
-
   }
-
 
   if(index===2){
-
     return 'rank rank-3';
-
   }
-
 
   return 'rank';
 
 }
 
 
-
 function render(){
 
-
   const teamRanking=
-
   document.getElementById(
     'teamRanking'
   );
 
-
   const studentRanking=
-
   document.getElementById(
     'studentRanking'
   );
 
 
-
   const sortedTeams=
-
-  [...db.teams]
-
-  .sort(
-
+  [...db.teams].sort(
     (a,b)=>
-
     Number(b.score||0)
-
     -
-
     Number(a.score||0)
-
   );
-
 
 
   if(sortedTeams.length){
 
-
     teamRanking.innerHTML=
 
     sortedTeams.map(
-
       (t,index)=>`
 
       <tr>
 
       <td>
 
-      <span
-      class="${rankClass(index)}"
-      >
+      <span class="${rankClass(index)}">
 
       ${index+1}位
 
@@ -572,13 +462,14 @@ function render(){
       <img
       src="${esc(t.logo||placeholder)}"
       alt=""
-      onerror="this.src='${placeholder}'"
+      onerror="
+        this.onerror=null;
+        this.src='${placeholder}';
+      "
       >
 
       <span>
-
       ${esc(t.name)}
-
       </span>
 
       </div>
@@ -587,9 +478,7 @@ function render(){
 
 
       <td>
-
       ${Number(t.score||0)}pt
-
       </td>
 
       </tr>
@@ -598,9 +487,7 @@ function render(){
 
     ).join('');
 
-
   }else{
-
 
     teamRanking.innerHTML=
 
@@ -613,8 +500,7 @@ function render(){
     class="empty"
     >
 
-    ランキングデータは
-    まだありません
+    ランキングデータはまだありません
 
     </td>
 
@@ -625,41 +511,27 @@ function render(){
   }
 
 
-
   const sortedStudents=
-
-  [...db.students]
-
-  .sort(
-
+  [...db.students].sort(
     (a,b)=>
-
     Number(b.score||0)
-
     -
-
     Number(a.score||0)
-
   );
-
 
 
   if(sortedStudents.length){
 
-
     studentRanking.innerHTML=
 
     sortedStudents.map(
-
       (s,index)=>`
 
       <tr>
 
       <td>
 
-      <span
-      class="${rankClass(index)}"
-      >
+      <span class="${rankClass(index)}">
 
       ${index+1}位
 
@@ -669,33 +541,23 @@ function render(){
 
 
       <td>
-
       ${esc(s.name)}
-
       </td>
 
 
       <td>
 
       ${esc(
-
-        team(
-          s.teamId
-        )?.name
-
+        team(s.teamId)?.name
         ||
-
         '未所属'
-
       )}
 
       </td>
 
 
       <td>
-
       ${Number(s.score||0)}pt
-
       </td>
 
       </tr>
@@ -704,9 +566,7 @@ function render(){
 
     ).join('');
 
-
   }else{
-
 
     studentRanking.innerHTML=
 
@@ -719,8 +579,7 @@ function render(){
     class="empty"
     >
 
-    ランキングデータは
-    まだありません
+    ランキングデータはまだありません
 
     </td>
 
@@ -731,55 +590,34 @@ function render(){
   }
 
 
-
   const now=
-
-  new Date()
-
-  .toLocaleString(
-
+  new Date().toLocaleString(
     'ja-JP',
-
     {
-
       year:'numeric',
-
       month:'2-digit',
-
       day:'2-digit',
-
       hour:'2-digit',
-
       minute:'2-digit'
-
     }
-
   );
 
 
   document
-  .getElementById(
-    'updated'
-  )
+  .getElementById('updated')
   .textContent=
-
   `最終表示更新：${now}`;
 
 }
-
 
 
 loadData();
 
 
 setInterval(
-
   loadData,
-
   30000
-
 );
-
 
 </script>
 
